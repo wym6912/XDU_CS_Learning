@@ -11,7 +11,7 @@ rst = '''Welcome to XDU-CS-Learning-Cracker!
 ===========================================
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 4
    :caption: Contents:
 
    TOC
@@ -59,9 +59,14 @@ def get_course(root, cur, depth=0, threshold=30):
 def get_semester(cur):
     md = ''
     files, dirs = get_all(cur)
-    files = ['大一上.md', '大一下.md', '大二上.md', '大二下.md', '大三上.md', '大三下.md', '大四.md']
-    for i in range(len(files)):
-        files[i] = cur+"/"+files[i]
+    if cur == "./CS" or cur == "./SE":
+        files = ['README.md', '大一上.md', '大一下.md', '大二上.md', '大二下.md', '大三上.md', '大三下.md', '大四.md']
+        for i in range(len(files)):
+            files[i] = cur+"/"+files[i]
+    if cur == "./升学":
+        files = ['保研.md', '出境深造.md', '考研.md']
+        for i in range(len(files)):
+            files[i] = cur+"/"+files[i]
     for i in files:
         if i.endswith(EXT):
             md += f'{open(i).read()}\n\n'
@@ -88,7 +93,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     files, dirs = get_all(args.root)
     files = ["./序.md", "./前置技能.md"]
-    dirs = ['./CS', './SE']
+    dirs = ['./CS', './SE', "./竞赛", "./升学", "实习&工作", "./实验室&科研"]
     files = [i for i in files if i.split(sep)[-1] not in EXCLUDE]
     dirs = [i for i in dirs if i.split(sep)[-1] not in EXCLUDE]
     print(files)
